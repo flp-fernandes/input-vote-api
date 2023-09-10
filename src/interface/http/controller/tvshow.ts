@@ -1,18 +1,24 @@
 import httpStatus from 'http-status-codes';
 
 import { HttpControllerConfig, HttpNext, HttpRequest, HttpResponse, HttpRouter, IHttpRoute } from "../../../types/interface";
+import { addTVShowSchema } from '../schema/tvshow';
 
 export class TVShowController implements IHttpRoute {
+  private _validator: HttpControllerConfig['validator']
   private tvShowUseCase: HttpControllerConfig['coreContainer']['tvShowUseCase'];
 
-  constructor({ coreContainer }: HttpControllerConfig) {
+  constructor({ coreContainer, validator }: HttpControllerConfig) {
+    this._validator = validator;
     this.tvShowUseCase = coreContainer.tvShowUseCase;
   }
 
   register (router: HttpRouter): void {
     router
       .route('/v1/tvshow')
-      .post(this.addTVShow.bind(this))
+      .post(
+        this._validator(addTVShowSchema),
+        this.addTVShow.bind(this)
+      )
   }
 
   async addTVShow(req: HttpRequest, res: HttpResponse, next: HttpNext) {

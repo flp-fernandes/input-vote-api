@@ -36,10 +36,10 @@ export const errorHandler = (
   }
 
   if (status !== httpStatusCodes.INTERNAL_SERVER_ERROR) {
-    console.warn(err);
+    console.warn(err.details);
   } else {
     throwErr = new InternalServerError(err.message, err.details);
-    console.error(err);
+    console.error(err.details);
   }
 
   return res.status(status).send(

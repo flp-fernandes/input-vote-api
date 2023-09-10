@@ -43,3 +43,9 @@ export class InternalServerError extends CustomError {
     super('INTERNAL_SERVER_ERROR', message, details);
   }
 }
+
+export class InvalidProperties extends CustomError {
+  constructor(message: string, details: unknown) {
+    super('INVALID_PROPERTIES', message, details as CustomError[]);
+  }
+}

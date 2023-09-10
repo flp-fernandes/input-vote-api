@@ -1,10 +1,18 @@
 import crypto from 'crypto';
 
 import { ITVShowUseCase, TVShow } from '../../types/tvshow';
+import { validateProperties } from './schemas/shared';
+import { addTVShowSchema } from './schemas/tvshow';
 
 export class TVShowUseCase implements ITVShowUseCase {
   public async addTVShow(params: TVShow): Promise<Partial<TVShow>> {
-    const tvShowUuid = crypto.randomUUID()
+    validateProperties({
+      schema: addTVShowSchema,
+      params,
+      errorMsg: 'Invalid properties to add a TV Show'
+    })
+    
+    const tvShowUuid = crypto.randomUUID();
 
     return {
       tvShowUuid,

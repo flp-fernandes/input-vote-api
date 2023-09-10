@@ -7,6 +7,7 @@ import { Container } from "../../types/core";
 import { IHttpInterface, IHttpRoute } from "../../types/interface";
 import { TVShowController } from './controller/tvshow';
 import { errorHandler } from './middleware/errorHandler';
+import { validator } from './middleware/validator';
 
 type Config = {
   env: typeof import('../../util/env').env;
@@ -43,7 +44,10 @@ export class HttpInterface implements IHttpInterface {
 
   setupRoutes() {
     [
-      new TVShowController({ coreContainer: this.coreContainer })
+      new TVShowController({ 
+        coreContainer: this.coreContainer,
+        validator
+      })
     ].forEach((route: IHttpRoute) => {
       const router = express.Router({ mergeParams: true });
       route.register(router);
