@@ -12,5 +12,9 @@ export type TVShow = {
 }
 
 export interface ITVShowUseCase {
-  addTVShow(params: Omit<TVShow, 'id' | 'tvShowUuid' | 'createdAt'> ): Promise<Partial<TVShow>>;
+  addTVShow(params: Omit<TVShow, 'id' | 'tvShowUuid' | 'createdAt'>): Promise<Partial<TVShow>>;
+}
+
+export interface ITVShowService {
+  addTVShow(params: Omit<TVShow, 'id' | 'createdAt'>): Promise<TVShow>;
 }
