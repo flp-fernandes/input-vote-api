@@ -1,5 +1,6 @@
 import { createContainer } from "./interface/interfaceContainer";
 import { env } from './util/env';
+import { Logger } from "./util/logger";
 
 type AppConfig = {
   http?: boolean
@@ -7,6 +8,7 @@ type AppConfig = {
 
 export class App {
   private _http?: boolean;
+  private readonly logger = new Logger(App.name)
   
   constructor({ http }: AppConfig) {
     this._http = http;
@@ -23,6 +25,8 @@ export class App {
     if (this._http) {
       interfaceContainer.httpInterface?.serve();
     }
+
+    this.logger.logger().info('app initialized')
   }
 }
 
@@ -32,5 +36,4 @@ const app = new App({
 
 setImmediate(() => {
   app.run();
-  console.log('app initialized');
 })

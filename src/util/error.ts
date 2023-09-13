@@ -49,3 +49,9 @@ export class InvalidProperties extends CustomError {
     super('INVALID_PROPERTIES', message, details as CustomError[]);
   }
 }
+
+export class FailedToSaveTVShow extends CustomError {
+  constructor(message: string, details?: unknown) {
+    super('FAILED_TO_SAVE_TVSHOW', message);
+  }
+}

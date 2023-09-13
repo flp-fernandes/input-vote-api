@@ -3,6 +3,7 @@ import R from 'ramda';
 
 import { HttpNext, HttpRequest, HttpResponse } from "../../../types/interface";
 import { BadRequestError, InternalServerError, NotFoundError, TooManyRequestsError, UnauthorizedError } from '../../../util/error';
+import { Logger } from '../../../util/logger';
 
 const isNotFoundError = (err: any): boolean => {
   return (err instanceof NotFoundError)
@@ -16,6 +17,9 @@ export const errorHandler = (
 ) => {
   let status = httpStatusCodes.INTERNAL_SERVER_ERROR;
   let throwErr = err;
+  console.log(status);
+
+  const logger = new Logger(errorHandler.name);
 
   if (isNotFoundError(err)) {
     status = httpStatusCodes.NOT_FOUND;
@@ -36,10 +40,10 @@ export const errorHandler = (
   }
 
   if (status !== httpStatusCodes.INTERNAL_SERVER_ERROR) {
-    console.warn(err.details);
+    logger.logger().warn(err.details);
   } else {
     throwErr = new InternalServerError(err.message, err.details);
-    console.error(err.details);
+    logger.logger().error(err);
   }
 
   return res.status(status).send(
