@@ -40,10 +40,10 @@ export const errorHandler = (
   }
 
   if (status !== httpStatusCodes.INTERNAL_SERVER_ERROR) {
-    logger.logger().warn(err.details);
+    logger.console().warn(err.details);
   } else {
     throwErr = new InternalServerError(err.message, err.details);
-    logger.logger().error(err);
+    logger.console().error(err);
   }
 
   return res.status(status).send(

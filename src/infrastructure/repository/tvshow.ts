@@ -35,7 +35,7 @@ export class TVShowRepository implements ITVShowRepository {
         status: params.status,
       }))
     } catch (error) {
-      this.logger.logger().error('Failed to save TV Show: ', error);
+      this.logger.console().error('Failed to save TV Show: ', error);
 
       throw new FailedToSaveTVShow('Failed to save TV Show');
     }

@@ -23,9 +23,9 @@ module.exports = {
     afterCreate: function _(connection: any, done: Function) {
       connection.query('SET time_zone = "UTC";', function er(err: Error) {
         if (err) {
-          logger.logger().warn('failed to initialize mysql database connection'); // missing err
+          logger.console().warn('failed to initialize mysql database connection'); // missing err
         } else {
-          logger.logger().info('mysql database connected');
+          logger.console().info('mysql database connected');
         }
 
         done(err, connection)

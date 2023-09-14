@@ -26,7 +26,7 @@ export class App {
       interfaceContainer.httpInterface?.serve();
     }
 
-    this.logger.logger().info('app initialized')
+    this.logger.console().info('app initialized')
   }
 }
 

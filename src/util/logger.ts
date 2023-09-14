@@ -11,7 +11,7 @@ export class Logger {
     this._info = info;
   }
   
-  logger() {
+  console() {
     const logFormat = format.printf(({ level, message, timestamp }) => {
       return `[${timestamp}] >>> ${this._info} - ${level}: ${message}`
     })
